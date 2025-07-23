@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors'); 
 const quizRoutes = require('./routes/quizRoutes');
+require('dotenv').config();
 const announcementRoutes = require('./routes/announcementRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 
@@ -17,7 +18,8 @@ app.use('/api', announcementRoutes);
 app.use('/api', courseRoutes);
 
 
-mongoose.connect("mongodb+srv://arwaaemamm:uvOnVAnP1xVadTTO@cluster0.v7oatnz.mongodb.net/quizApp?retryWrites=true&w=majority&appName=Cluster0")
+const dbURI = process.env.MONGODB_URI;
+mongoose.connect(dbURI)
   .then(() => {
     console.log('MongoDB Atlas connected');
     if (require.main === module) {
